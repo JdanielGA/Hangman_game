@@ -3,9 +3,9 @@ import random
 
 # flag = True
 
-my_test_word = 'celphone'
-test_list = [letter for letter in my_test_word]
-index_list = [(i,l) for i, l in enumerate(test_list)]
+my_test_word = 'celphone'.upper()
+letters_of_test_word = [letter for letter in my_test_word]
+hidden_word = ['_'] * len(my_test_word)
 index_dict = {}
 
 for idx, letter in enumerate(my_test_word):
@@ -18,6 +18,21 @@ for idx, letter in enumerate(my_test_word):
 # find_letter = my_test_word.find(chosen_word)
 
 print(index_dict)
+while True:
+    for item in hidden_word:
+        print(item, " ", end="")
+    print("\n")
+
+    letter = input("Enter a letter: ").strip().upper()
+    print(f'The letter chossen was {letter}')
+
+    if letter in letters_of_test_word:
+        for idx in index_dict[letter]:
+            hidden_word[idx] = letter
+    
+    if '_' not in hidden_word:
+        print('You win')
+        break
 
 
 # def main_menu():
