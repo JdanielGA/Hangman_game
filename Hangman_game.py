@@ -27,7 +27,7 @@ def read():
     with open("./Files/words.txt", "r") as f:
         for line in f:
             words.append(line.strip())
-    random_word = random.choice(words)
+    random_wordx = random.choice(words)
     print(random_word)
 
 
