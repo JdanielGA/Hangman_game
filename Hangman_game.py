@@ -46,15 +46,15 @@ games_options = """
 """
 
 
-def game():
-    house_words = []
-    with open('./Files/house_words.txt', 'r', encoding="utf-8") as f:
+def read(file):
+    words = []
+    with open(file, 'r', encoding="utf-8") as f:
         for line in f:
-            house_words.append(str(line))
+            words.append(str(line))
     
-    rando_word = random.choice(house_words)
+    random_word = random.choice(words)
     
-    print(rando_word)
+    return random_word
 
 
 def run():
@@ -80,7 +80,8 @@ def run():
                 if game_choice == 1:
 
                     os.system('clear')
-                    game()
+                    random_word = read(file='./Files/house_words.txt')
+                    print(random_word)
                     input('press enter key')
                 else:
                     flag_2 = False
