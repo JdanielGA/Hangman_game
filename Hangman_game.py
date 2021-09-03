@@ -111,79 +111,76 @@ games_options = """
 
 """
 
-lives = 7
-position = 0
-
-
-# def read(file):
-#     words = []
-#     with open(file, 'r', encoding="utf-8") as f:
-#         for line in f:
-#             words.append(str(line))
+def read(file):
+    words = []
+    with open(file, 'r', encoding="utf-8") as f:
+        for line in f:
+            words.append(str(line))
     
-#     random_word = random.choice(words)
+    random_word = random.choice(words)
     
-#     return random_word
+    return random_word
 
 
-# def run():
+def run():
 
-#     flag = True
+    flag = True
 
-#     while flag:
+    while flag:
 
-#         os.system('clear')
-#         print(menu)
-#         election = int(input("choose an option: "))
+        os.system('clear')
+        print(menu)
+        election = int(input("choose an option: "))
 
-#         if election == 1:
+        if election == 1:
 
-#             flag_2 = True
+            flag_2 = True
 
-#             while flag_2:
+            while flag_2:
 
-#                 os.system('clear')
-#                 print(games_options)
-#                 game_choice = int(input('chosse an option: '))
+                os.system('clear')
+                print(games_options)
+                game_choice = int(input('chosse an option: '))
 
-#                 if game_choice == 1:
+                if game_choice == 1:
 
-#                     os.system('clear')
-#                     random_word = read(file='./Files/house_words.txt')
-#                     print(random_word)
-#                     input('press enter key')
-#                 else:
-#                     flag_2 = False
+                    lives = 7
+                    position = 0
 
-#         else:
-#             os.system('clear')
-#             print(exit_menu)
-#             exit_choice = int(input('choose an option: '))
+                    random_word = read(file='./Files/house_words.txt')
+                    
+                    if lives > 0:
+                        os.system('clear')
+                        print(hangman_pick[position])
+                        print(random_word)
+                        e = input('choose an option Y or N to continue: ')
+                        if e == 'Y':
+                            continue
+                        elif e == 'N':
+                            lives -= 1
+                            position += 1
+                    elif lives == 0:
+                        os.system('clear')
+                        print(hangman_pick[position])
+                        print('You lose \n')
+                        break
+                    print(random_word)
+                    input('press enter key')
+                else:
+                    flag_2 = False
 
-#             if exit_choice == 2:
-#                 flag = True
-#             else:
-#                 os.system('clear')
-#                 print('Thanks for playing \n')
-#                 flag = False
+        else:
+            os.system('clear')
+            print(exit_menu)
+            exit_choice = int(input('choose an option: '))
+
+            if exit_choice == 2:
+                flag = True
+            else:
+                os.system('clear')
+                print('Thanks for playing \n')
+                flag = False
       
 
-# if __name__=='__main__':
-#     run()
-
-
-while True:
-    if lives > 0:
-        os.system('clear')
-        print(hangman_pick[position])
-        e = input('choose an option Y or N to continue: ')
-        if e == 'Y':
-            continue
-        elif e == 'N':
-            lives -= 1
-            position += 1
-    elif lives == 0:
-        os.system('clear')
-        print(hangman_pick[position])
-        print('You lose \n')
-        break
+if __name__=='__main__':
+    run()
