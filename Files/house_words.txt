@@ -1,0 +1,30 @@
+window
+balcony
+ceiling
+cornice
+corridor
+facade
+floor
+hallway
+hall
+room
+stairs
+rooftop
+wall
+door
+heating
+basement
+attic
+kitchen
+garden
+bathroom
+bedroom
+livin room
+dining room
+garage
+mailbox
+armchair
+carpet
+fireplace
+sofa
+bookcase
