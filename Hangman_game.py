@@ -33,8 +33,13 @@ def run():
                 index_dict[letter] = []
             index_dict[letter].append(idx)
 
-    print(index_dict)
+    lives = 7
+
     while True:
+
+        os.system('clear')
+        print(f'you have {lives} lives')
+
         for item in hidden_word:
             print(item, " ", end="")
         print("\n")
@@ -46,8 +51,17 @@ def run():
             for idx in index_dict[letter]:
                 hidden_word[idx] = letter
         
+        else:
+            lives -= 1
+ 
         if '_' not in hidden_word:
-            print('You win')
+            os.system('clear')
+            print(f'You win the word was {random_word}')
+            break
+
+        if lives == 0:
+            os.system('clear')
+            print(f'You lost, the word waf {random_word}')
             break
 
 if __name__ == '__main__':

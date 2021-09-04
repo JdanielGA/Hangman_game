@@ -3,4 +3,6 @@ aqui
 prueba
 español
 otras
-telefeno
+telefono
+padre
+viaje
