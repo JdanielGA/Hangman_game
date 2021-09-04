@@ -1,9 +1,74 @@
 import os
 import random
 
+hangman_pick = ["""
+                                              +---+
+                                              |   |
+                                              ¨   |
+                                                  |
+                                                  |
+                                            ¯¯¯¯¯¯|
+                                            ============
+""", """
+                                              +---+
+                                              |   |
+                                              O   |
+                                                  |
+                                                  |
+                                            ¯¯¯¯¯¯|
+                                            ============
+""", """
+                                              +---+
+                                              |   |
+                                              O   |
+                                              |   |
+                                                  |
+                                            ¯¯¯¯¯¯|
+                                            ============
+""", """
+                                              +---+
+                                              |   |
+                                             \O   |
+                                              |   |
+                                                  |
+                                            ¯¯¯¯¯¯|
+                                            ============
+""", """
+                                              +---+
+                                              |   |
+                                             \O/  |
+                                              |   |
+                                                  |
+                                            ¯¯¯¯¯¯|
+                                            ============
+""", """
+                                              +---+
+                                              |   |
+                                             \O/  |
+                                              |   |
+                                             /    |
+                                            ¯¯¯¯¯¯|
+                                            ============
+""", """
+                                              +---+
+                                              |   |
+                                             \O/  |
+                                              |   |
+                                             / \  |
+                                            ¯¯¯¯¯¯|
+                                            ============
+""", """
+                                              +---+
+                                              |   |
+                                              |   |
+                                              0   |
+                                             /|\  |
+                                             / \  |
+                                            ============
+"""]
 
 
-def read(data_packet='./Files'):
+def read(data_packet):
 
     word = []
     with open(data_packet, 'r', encoding="utf-8") as f:
@@ -34,11 +99,13 @@ def run():
             index_dict[letter].append(idx)
 
     lives = 7
+    position = 0
 
     while True:
 
         os.system('clear')
         print(f'you have {lives} lives')
+        print(hangman_pick[position])
 
         for item in hidden_word:
             print(item, " ", end="")
@@ -53,6 +120,7 @@ def run():
         
         else:
             lives -= 1
+            position += 1
  
         if '_' not in hidden_word:
             os.system('clear')
