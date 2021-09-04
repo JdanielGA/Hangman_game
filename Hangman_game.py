@@ -110,6 +110,14 @@ games_options = """
  1 - parts of the house and items inside the home.
 
 """
+play_again = """
+ Do you want to play again?
+
+ 1 - Yes
+ 2 - No
+
+ choose an opcion: 
+"""
 
 def read(file):
     words = []
@@ -144,28 +152,45 @@ def run():
 
                 if game_choice == 1:
 
-                    lives = 7
-                    position = 0
+                    flag_3 = True
 
-                    random_word = read(file='./Files/house_words.txt')
-                    
-                    if lives > 0:
-                        os.system('clear')
-                        print(hangman_pick[position])
-                        print(random_word)
-                        e = input('choose an option Y or N to continue: ')
-                        if e == 'Y':
-                            continue
-                        elif e == 'N':
-                            lives -= 1
-                            position += 1
-                    elif lives == 0:
-                        os.system('clear')
-                        print(hangman_pick[position])
-                        print('You lose \n')
-                        break
-                    print(random_word)
-                    input('press enter key')
+                    while flag_3 ==True:
+
+                        random_word = read(file='./Files/house_words.txt')
+
+                        lives = 7
+                        position = 0
+                        end_game = True
+
+                        while True:
+
+                            if lives > 0:
+                                os.system('clear')
+                                print(hangman_pick[position])
+                                print(random_word)
+                                e = input('choose an option Y or N to continue: ')
+
+                                if e == 'Y':
+                                    continue
+
+                                elif e == 'N':
+                                        lives -= 1
+                                        position += 1
+
+                            elif lives == 0:
+                                os.system('clear')
+                                print(hangman_pick[position])
+                                print('You lose \n')
+                                end_game = False
+                                break
+
+                        if end_game == False:
+                            try_again = int(input(play_again))
+                            if try_again == 1:
+                                end_game = True
+                            else:
+                                break                            
+                        
                 else:
                     flag_2 = False
 
