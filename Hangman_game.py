@@ -1,7 +1,6 @@
 import os
 import random
 
-
 menu = """
 
                                     _                              _         
@@ -96,116 +95,121 @@ hangman_pick = ["""
                                             ============
 """]
 
+game_optios = """
+                                    _                              _         
+                    __ __ __  ___  | |  __   ___   _ __    ___    | |_   ___ 
+                    \ V  V / / -_) | | / _| / _ \ | '  \  / -_)   |  _| / _ \ 
+                     \_/\_/  \___| |_| \__| \___/ |_|_|_| \___|    \__| \___/
+                    
+  _   _                                                          ____                            
+ | | | |   __ _   _ __     __ _   _ __ ___     __ _   _ __      / ___|   __ _   _ __ ___     ___ 
+ | |_| |  / _` | | '_ \   / _` | | '_ ` _ \   / _` | | '_ \    | |  _   / _` | | '_ ` _ \   / _ \ 
+ |  _  | | (_| | | | | | | (_| | | | | | | | | (_| | | | | |   | |_| | | (_| | | | | | | | |  __/
+ |_| |_|  \__,_| |_| |_|  \__, | |_| |_| |_|  \__,_| |_| |_|    \____|  \__,_| |_| |_| |_|  \___|
+                          |___/  
+
+                                        GAME OPTIONS
+
+                                    1 - Parts of a house
+                                    2 - Test
+                                    0 - Exit
+
+"""
 exit_menu = """
- Do you want to exit?
  
- 1 - Yes.
- 2 - No.
-
-"""
-
-games_options = """
- What area do you want to review?
-
- 1 - parts of the house and items inside the home.
-
-"""
-play_again = """
- Do you want to play again?
+ Do you want to exit?
 
  1 - Yes
  2 - No
 
- choose an opcion: 
 """
 
-def read(file):
-    words = []
-    with open(file, 'r', encoding="utf-8") as f:
-        for line in f:
-            words.append(str(line))
-    
-    random_word = random.choice(words)
-    
-    return random_word
+def read(data_packet):
 
+    word = []
+    with open(data_packet, 'r', encoding="utf-8") as f:
+        for l in f:
+            word.append(l.strip().replace(" ","").upper())
+    return word
 
 def run():
 
-    flag = True
-
-    while flag:
-
+    while True:
         os.system('clear')
         print(menu)
-        election = int(input("choose an option: "))
+        play_election = int(input("Choose an option: "))
 
-        if election == 1:
+        if play_election == 1:
 
-            flag_2 = True
+            lives = 7
+            position = 0
 
-            while flag_2:
+            os.system('clear')
+            print(game_optios)
+            choose = int(input('Choose an option: '))
+            
+            if choose == 1:
+                data = read(data_packet='./Files/house_words.txt')
+
+            if choose == 2:
+                data = read(data_packet='./Files/test_words.txt')
+                
+            
+
+            random_word = random.choice(data)
+
+            letters_of_test_word = [letter for letter in random_word]
+            hidden_word = ['_'] * len(random_word)
+            index_dict = {}
+
+            for idx, letter in enumerate(random_word):
+                    if not index_dict.get(letter): 
+                        index_dict[letter] = []
+                    index_dict[letter].append(idx)
+
+            while True:
 
                 os.system('clear')
-                print(games_options)
-                game_choice = int(input('chosse an option: '))
+                print(f'you have {lives} lives')
+                print(hangman_pick[position])
 
-                if game_choice == 1:
+                for item in hidden_word:
+                    print(item, " ", end="")
+                print("\n")
 
-                    flag_3 = True
+                letter = input("Enter a letter: ").strip().upper()
+                print(f'The letter chossen was {letter}')
 
-                    while flag_3 ==True:
-
-                        random_word = read(file='./Files/house_words.txt')
-
-                        lives = 7
-                        position = 0
-                        end_game = True
-
-                        while True:
-
-                            if lives > 0:
-                                os.system('clear')
-                                print(hangman_pick[position])
-                                print(random_word)
-                                e = input('choose an option Y or N to continue: ')
-
-                                if e == 'Y':
-                                    continue
-
-                                elif e == 'N':
-                                        lives -= 1
-                                        position += 1
-
-                            elif lives == 0:
-                                os.system('clear')
-                                print(hangman_pick[position])
-                                print('You lose \n')
-                                end_game = False
-                                break
-
-                        if end_game == False:
-                            try_again = int(input(play_again))
-                            if try_again == 1:
-                                end_game = True
-                            else:
-                                break                            
-                        
+                if letter in letters_of_test_word:
+                    for idx in index_dict[letter]:
+                        hidden_word[idx] = letter
+                
                 else:
-                    flag_2 = False
+                    lives -= 1
+                    position += 1
+        
+                if '_' not in hidden_word:
+                    os.system('clear')
+                    print(f'You win the word was {random_word}')
+                    break
 
-        else:
+                if lives == 0:
+                    os.system('clear')
+                    print('You do not have lives')
+                    print(hangman_pick[position])
+                    print(f'You lost, the word waf {random_word}')
+                    input('Press enter to continue')
+                    break
+
+        elif play_election == 2:
             os.system('clear')
             print(exit_menu)
-            exit_choice = int(input('choose an option: '))
-
-            if exit_choice == 2:
-                flag = True
+            exit_election = int(input('Choose an election: '))
+            if exit_election == 1:
+                break
             else:
-                os.system('clear')
-                print('Thanks for playing \n')
-                flag = False
-      
+                continue
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     run()
